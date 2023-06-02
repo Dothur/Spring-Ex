@@ -29,11 +29,24 @@ public class DemoApplication {
 	public CommandLineRunner demo(CustomerRepository repository) {
 		return agrs -> {
 			repository.save(new Customer("leo", "aa"));
+			repository.save(new Customer("yui", "bb"));
+			repository.save(new Customer("bob", "cc"));
+			repository.save(new Customer("leo2", "aa"));
 
+			log.info("FindAll----------------------");
 			for (Customer customer : repository.findAll()){
 				log.info(customer.toString());
 			}
 			log.info("");
+
+			log.info("FindById----------------------");
+			Customer customer = repository.findById(1L);
+			log.info(customer.toString());
+			log.info("");
+
+			log.info("FindByName----------------------");
+			repository.findByLastName("aa").forEach(c -> {log.info(c.toString());});
+			log.info(customer.toString());
 		};
 	}
 }
